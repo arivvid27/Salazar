@@ -1,0 +1,442 @@
+/* Popup Styles */
+:root {
+    --primary-color: #3a86ff;
+    --secondary-color: #8338ec;
+    --danger-color: #ff006e;
+    --warning-color: #fb5607;
+    --safe-color: #38b000;
+    --background-color: #f8f9fa;
+    --text-color: #212529;
+    --light-text: #6c757d;
+    --border-color: #dee2e6;
+  }
+  
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    width: 360px;
+    height: 500px;
+    overflow: hidden;
+  }
+  
+  .container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  header {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    padding: 15px;
+    border-bottom: 1px solid var(--border-color);
+  }
+  
+  .logo {
+    display: flex;
+    align-items: center;
+  }
+  
+  .logo img {
+    width: 32px;
+    height: 32px;
+    margin-right: 10px;
+  }
+  
+  .logo h1 {
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+  
+  .tagline {
+    font-size: 0.85rem;
+    margin-top: 5px;
+    opacity: 0.9;
+  }
+  
+  .content {
+    flex: 1;
+    padding: 15px;
+    overflow-y: auto;
+  }
+  
+  .scan-area, .result-area, .settings-area {
+    display: none;
+  }
+  
+  .active {
+    display: block;
+  }
+  
+  .scan-status {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 30px 0;
+  }
+  
+  .scan-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .scan-icon::before {
+    content: '';
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background-image: url('../images/scan-icon.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  
+  .scan-icon.scanning::before {
+    animation: pulse 1.5s infinite;
+  }
+  
+  .scan-icon.success {
+    background-color: var(--safe-color);
+  }
+  
+  .scan-icon.warning {
+    background-color: var(--warning-color);
+  }
+  
+  .scan-icon.danger {
+    background-color: var(--danger-color);
+  }
+  
+  .scan-message {
+    font-size: 1.1rem;
+    font-weight: 500;
+    text-align: center;
+  }
+  
+  .risk-meter {
+    margin: 20px 0;
+  }
+  
+  .risk-label {
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+    color: var(--light-text);
+  }
+  
+  .risk-bar {
+    height: 8px;
+    background-color: #e9ecef;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  
+  .risk-indicator {
+    height: 100%;
+    width: 0;
+    background: linear-gradient(90deg, var(--safe-color), var(--warning-color), var(--danger-color));
+    transition: width 0.5s ease;
+  }
+  
+  .threats {
+    margin-top: 20px;
+  }
+  
+  .threat-item {
+    background-color: white;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    border-left: 4px solid var(--primary-color);
+  }
+  
+  .threat-item.phishing {
+    border-left-color: var(--danger-color);
+  }
+  
+  .threat-item.xss {
+    border-left-color: var(--warning-color);
+  }
+  
+  .threat-item.csrf {
+    border-left-color: var(--secondary-color);
+  }
+  
+  .threat-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .threat-title {
+    font-weight: 600;
+    font-size: 1rem;
+  }
+  
+  .threat-risk {
+    font-size: 0.8rem;
+    padding: 3px 8px;
+    border-radius: 12px;
+    background-color: #e9ecef;
+  }
+  
+  .threat-risk.high {
+    background-color: var(--danger-color);
+    color: white;
+  }
+  
+  .threat-risk.medium {
+    background-color: var(--warning-color);
+    color: white;
+  }
+  
+  .threat-risk.low {
+    background-color: var(--safe-color);
+    color: white;
+  }
+  
+  .threat-details {
+    font-size: 0.9rem;
+    color: var(--light-text);
+  }
+  
+  .threat-factors {
+    margin-top: 10px;
+    font-size: 0.85rem;
+  }
+  
+  .threat-factor {
+    padding: 5px 0;
+    border-bottom: 1px dashed var(--border-color);
+  }
+  
+  .threat-factor:last-child {
+    border-bottom: none;
+  }
+  
+  .recommendations {
+    margin-top: 20px;
+  }
+  
+  .recommendation-item {
+    background-color: #f1f8ff;
+    border-radius: 8px;
+    padding: 12px;
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+    border-left: 3px solid var(--primary-color);
+  }
+  
+  .learn-more {
+    text-align: center;
+    margin-top: 15px;
+  }
+  
+  .learn-more-btn {
+    background: none;
+    border: none;
+    color: var(--primary-color);
+    font-size: 0.9rem;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+  
+  .actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid var(--border-color);
+  }
+  
+  .btn {
+    padding: 8px 16px;
+    border-radius: 4px;
+    border: none;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  .btn-primary {
+    background-color: var(--primary-color);
+    color: white;
+  }
+  
+  .btn-secondary {
+    background-color: #e9ecef;
+    color: var(--text-color);
+  }
+  
+  .btn-danger {
+    background-color: var(--danger-color);
+    color: white;
+  }
+  
+  .nav-tabs {
+    display: flex;
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 15px;
+  }
+  
+  .nav-tab {
+    padding: 10px 15px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+  }
+  
+  .nav-tab.active {
+    border-bottom-color: var(--primary-color);
+    color: var(--primary-color);
+    font-weight: 500;
+  }
+  
+  .settings-group {
+    margin-bottom: 20px;
+  }
+  
+  .settings-title {
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+  
+  .settings-option {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border-color);
+  }
+  
+  .settings-option:last-child {
+    border-bottom: none;
+  }
+  
+  .settings-label {
+    font-size: 0.9rem;
+  }
+  
+  .settings-desc {
+    font-size: 0.8rem;
+    color: var(--light-text);
+    margin-top: 3px;
+  }
+  
+  .toggle {
+    position: relative;
+    display: inline-block;
+    width: 40px;
+    height: 20px;
+  }
+  
+  .toggle input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  .toggle-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 20px;
+  }
+  
+  .toggle-slider:before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    left: 2px;
+    bottom: 2px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+  }
+  
+  input:checked + .toggle-slider {
+    background-color: var(--primary-color);
+  }
+  
+  input:checked + .toggle-slider:before {
+    transform: translateX(20px);
+  }
+  
+  .education-panel {
+    background-color: white;
+    border-radius: 8px;
+    padding: 15px;
+    margin-top: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .education-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: var(--primary-color);
+  }
+  
+  .education-content {
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+  
+  .education-list {
+    margin-top: 10px;
+    padding-left: 20px;
+  }
+  
+  .education-list li {
+    margin-bottom: 5px;
+    font-size: 0.85rem;
+  }
+  
+  @keyframes pulse {
+    0% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    50% {
+      transform: scale(1.2);
+      opacity: 0.7;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 400px) {
+    body {
+      width: 100%;
+      height: auto;
+      min-height: 100vh;
+    }
+  }

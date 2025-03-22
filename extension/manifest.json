@@ -1,0 +1,45 @@
+{
+    "manifest_version": 3,
+    "name": "Muninn Web Threat Scanner",
+    "version": "1.0.0",
+    "description": "Detects phishing, XSS, and CSRF threats in real-time while browsing",
+    "icons": {
+      "16": "images/icon-16.png",
+      "48": "images/icon-48.png",
+      "128": "images/icon-128.png"
+    },
+    "action": {
+      "default_popup": "popup.html",
+      "default_icon": {
+        "16": "images/icon-16.png",
+        "48": "images/icon-48.png",
+        "128": "images/icon-128.png"
+      }
+    },
+    "permissions": [
+      "storage",
+      "tabs",
+      "activeTab",
+      "notifications"
+    ],
+    "host_permissions": [
+      "http://localhost:5000/*"
+    ],
+    "background": {
+      "service_worker": "background.js"
+    },
+    "content_scripts": [
+      {
+        "matches": ["<all_urls>"],
+        "js": ["content.js"],
+        "run_at": "document_idle"
+      }
+    ],
+    "options_page": "settings.html",
+    "web_accessible_resources": [
+      {
+        "resources": ["images/*"],
+        "matches": ["<all_urls>"]
+      }
+    ]
+  }

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Muninn - Settings</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/popup.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <img src="{{ url_for('static', filename='images/icon-48.png') }}" alt="Muninn Logo">
+                <h1>Muninn</h1>
+            </div>
+            <div class="tagline">Settings</div>
+        </header>
+        
+        <div class="content">
+            <div class="settings-section">
+                <h2>Scanning Options</h2>
+                
+                <div class="setting-item">
+                    <label for="auto-scan">
+                        <span class="setting-name">Auto-scan pages</span>
+                        <span class="setting-description">Automatically scan pages when you visit them</span>
+                    </label>
+                    <div class="toggle">
+                        <input type="checkbox" id="auto-scan" class="toggle-checkbox" checked>
+                        <label for="auto-scan" class="toggle-label"></label>
+                    </div>
+                </div>
+                
+                <div class="setting-item">
+                    <label for="education-mode">
+                        <span class="setting-name">Education Mode</span>
+                        <span class="setting-description">Show educational popups when threats are detected</span>
+                    </label>
+                    <div class="toggle">
+                        <input type="checkbox" id="education-mode" class="toggle-checkbox" checked>
+                        <label for="education-mode" class="toggle-label"></label>
+                    </div>
+                </div>
+                
+                <div class="setting-item">
+                    <label for="notification-level">
+                        <span class="setting-name">Notification Level</span>
+                        <span class="setting-description">When to show notifications</span>
+                    </label>
+                    <select id="notification-level" class="select-input">
+                        <option value="all">All Threats</option>
+                        <option value="medium" selected>Medium & High Risk Only</option>
+                        <option value="high">High Risk Only</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="settings-section">
+                <h2>Threat Detection</h2>
+                
+                <div class="setting-item">
+                    <label for="phishing-detection">
+                        <span class="setting-name">Phishing Detection</span>
+                        <span class="setting-description">Analyze pages for phishing indicators</span>
+                    </label>
+                    <div class="toggle">
+                        <input type="checkbox" id="phishing-detection" class="toggle-checkbox" checked>
+                        <label for="phishing-detection" class="toggle-label"></label>
+                    </div>
+                </div>
+                
+                <div class="setting-item">
+                    <label for="xss-detection">
+                        <span class="setting-name">XSS Detection</span>
+                        <span class="setting-description">Analyze pages for XSS vulnerabilities</span>
+                    </label>
+                    <div class="toggle">
+                        <input type="checkbox" id="xss-detection" class="toggle-checkbox" checked>
+                        <label for="xss-detection" class="toggle-label"></label>
+                    </div>
+                </div>
+                
+                <div class="setting-item">
+                    <label for="csrf-detection">
+                        <span class="setting-name">CSRF Detection</span>
+                        <span class="setting-description">Analyze pages for CSRF vulnerabilities</span>
+                    </label>
+                    <div class="toggle">
+                        <input type="checkbox" id="csrf-detection" class="toggle-checkbox" checked>
+                        <label for="csrf-detection" class="toggle-label"></label>
+                    </div>
+                </div>
+                
+                <div class="setting-item">
+                    <label for="safe-browsing">
+                        <span class="setting-name">Safe Browsing API</span>
+                        <span class="setting-description">Check sites against Google Safe Browsing</span>
+                    </label>
+                    <div class="toggle">
+                        <input type="checkbox" id="safe-browsing" class="toggle-checkbox" checked>
+                        <label for="safe-browsing" class="toggle-label"></label>
+                    </div>
+                </div>
+            </div>
+            
+            <button id="save-settings" class="button primary">Save Settings</button>
+            <button id="back-to-popup" class="button secondary">Back</button>
+        </div>
+        
+        <footer>
+            <div class="links">
+                <a href="https://github.com/yourusername/muninn" target="_blank">GitHub</a>
+            </div>
+            <div class="version">v1.0.0</div>
+        </footer>
+    </div>
+    
+    <script src="{{ url_for('static', filename='js/settings.js') }}"></script>
+</body>
+</html>

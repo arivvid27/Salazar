@@ -1,2 +1,11 @@
 **/__pycache__/
 *.log
+**/*.pyc
+*.pyo
+**/*.pyd
+**/*.so
+**/*.dll
+**/*.lib
+**/*.a
+**/scan_results/
+*.env

@@ -10,19 +10,24 @@
 </head>
 <body>
     <header>
-        <div class="container">
-            <div class="logo">
-                <a href="{{ url_for('index') }}">
+            <nav class="navbar">
+                <div class="navbar-container">
+                  <a href="/" class="navbar-logo">
                     <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Muninn Logo">
-                    <span>Muninn</span>
-                </a>
-            </div>
-            <nav>
-                <ul>
-                    <li><a href="{{ url_for('index') }}">Home</a></li>
-                    <li><a href="https://github.com/yourusername/muninn" target="_blank">GitHub</a></li>
-                </ul>
-            </nav>
+                    <h1>Muninn</h1>
+                  </a>
+                  
+                  <button class="menu-button" id="menuToggle">
+                    <i class="fas fa-bars"></i>
+                  </button>
+                  
+                  <div class="navbar-links" id="navbarLinks">
+                    <a href="/" class="{{ 'active' if request.path == '/' }}">Home</a>
+                    <a href="#about" class="{{ 'active' if request.path == '/about' }}">About</a>
+                    <a href="https://github.com/your-username/muninn" target="_blank">GitHub</a>
+                  </div>
+                </div>
+              </nav>
         </div>
     </header>
 
@@ -50,4 +55,9 @@
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
     {% block scripts %}{% endblock %}
 </body>
+<script>
+    document.getElementById('menuToggle').addEventListener('click', function() {
+      document.getElementById('navbarLinks').classList.toggle('open');
+    });
+  </script>
 </html>

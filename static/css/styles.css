@@ -654,7 +654,6 @@ a:hover {
     margin-top: 2rem;
 }
 
-/* Navbar Styles */
 .navbar {
     background-color: #2c3e50;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -752,3 +751,4 @@ a:hover {
       padding: 0.5rem 0;
     }
   }
+

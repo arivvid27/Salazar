@@ -1,0 +1,278 @@
+{% extends "base.html" %}
+
+{% block title %}Muninn - Scan Results{% endblock %}
+
+{% block content %}
+<div class="container results-container">
+    <div class="results-header">
+        <h1>Scan Results for <span class="url-text">{{ scan.target_url }}</span></h1>
+        <div class="scan-info">
+            <p><strong>Scan ID:</strong> {{ scan.id }}</p>
+            <p><strong>Started:</strong> {{ scan.start_time|format_datetime }}</p>
+            <p><strong>Duration:</strong> {{ scan.duration }} seconds</p>
+        </div>
+    </div>
+
+    <div class="risk-summary">
+        <h2>Risk Summary</h2>
+        <div class="risk-level risk-level-{{ scan.results.overview.risk_level|lower }}">
+            <div class="risk-label">Overall Risk</div>
+            <div class="risk-value">{{ scan.results.overview.risk_level }}</div>
+        </div>
+        <div class="vulnerability-counts">
+            <div class="vuln-count">
+                <span class="count">{{ scan.results.overview.total_vulnerabilities }}</span>
+                <span class="label">Total Vulnerabilities</span>
+            </div>
+            {% if scan.results.overview.critical > 0 %}
+            <div class="vuln-count critical">
+                <span class="count">{{ scan.results.overview.critical }}</span>
+                <span class="label">Critical</span>
+            </div>
+            {% endif %}
+            {% if scan.results.overview.high > 0 %}
+            <div class="vuln-count high">
+                <span class="count">{{ scan.results.overview.high }}</span>
+                <span class="label">High</span>
+            </div>
+            {% endif %}
+            {% if scan.results.overview.medium > 0 %}
+            <div class="vuln-count medium">
+                <span class="count">{{ scan.results.overview.medium }}</span>
+                <span class="label">Medium</span>
+            </div>
+            {% endif %}
+            {% if scan.results.overview.low > 0 %}
+            <div class="vuln-count low">
+                <span class="count">{{ scan.results.overview.low }}</span>
+                <span class="label">Low</span>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- XSS Vulnerabilities Section -->
+    <div class="scan-section">
+        <h2>XSS Vulnerabilities</h2>
+        {% set xss_found = false %}
+        {% for url, xss_result in scan.results.xss.items() %}
+            {% if xss_result.vulnerabilities|length > 0 %}
+                {% set xss_found = true %}
+                <div class="vulnerability-card risk-{{ xss_result.risk_level|lower }}">
+                    <div class="card-header">
+                        <h3>{{ url }}</h3>
+                        <span class="risk-badge">{{ xss_result.risk_level }}</span>
+                    </div>
+                    <div class="card-content">
+                        {% if xss_result.ai_analysis %}
+                            <div class="ai-analysis">
+                                <h4>AI Analysis</h4>
+                                <p>{{ xss_result.ai_analysis }}</p>
+                            </div>
+                        {% endif %}
+                        
+                        <div class="vulnerabilities-list">
+                            <h4>Detected Vulnerabilities</h4>
+                            {% for vuln in xss_result.vulnerabilities %}
+                                <div class="vulnerability-item">
+                                    <h5>{{ vuln.type }}</h5>
+                                    <p>{{ vuln.description }}</p>
+                                    {% if vuln.details %}
+                                        <div class="details">
+                                            <strong>Details:</strong>
+                                            {% if vuln.details is mapping %}
+                                                <ul>
+                                                {% for key, value in vuln.details.items() %}
+                                                    <li><code>{{ key }}</code>: {{ value }}</li>
+                                                {% endfor %}
+                                                </ul>
+                                            {% else %}
+                                                <p>{{ vuln.details }}</p>
+                                            {% endif %}
+                                        </div>
+                                    {% endif %}
+                                    {% if vuln.remediation %}
+                                        <div class="remediation">
+                                            <strong>Remediation:</strong>
+                                            <p>{{ vuln.remediation }}</p>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+        
+        {% if not xss_found %}
+            <div class="no-vulnerabilities">
+                <p>No XSS vulnerabilities detected.</p>
+            </div>
+        {% endif %}
+    </div>
+
+    <!-- CSRF Vulnerabilities Section -->
+    <div class="scan-section">
+        <h2>CSRF Vulnerabilities</h2>
+        {% set csrf_found = false %}
+        {% for url, csrf_result in scan.results.csrf.items() %}
+            {% if csrf_result.vulnerabilities|length > 0 %}
+                {% set csrf_found = true %}
+                <div class="vulnerability-card risk-{{ csrf_result.risk_level|lower }}">
+                    <div class="card-header">
+                        <h3>{{ url }}</h3>
+                        <span class="risk-badge">{{ csrf_result.risk_level }}</span>
+                    </div>
+                    <div class="card-content">
+                        {% if csrf_result.ai_analysis %}
+                            <div class="ai-analysis">
+                                <h4>AI Analysis</h4>
+                                <p>{{ csrf_result.ai_analysis }}</p>
+                            </div>
+                        {% endif %}
+                        
+                        <div class="vulnerabilities-list">
+                            <h4>Detected Vulnerabilities</h4>
+                            {% for vuln in csrf_result.vulnerabilities %}
+                                <div class="vulnerability-item">
+                                    <h5>{{ vuln.type }}</h5>
+                                    <p>{{ vuln.description }}</p>
+                                    {% if vuln.details %}
+                                        <div class="details">
+                                            <strong>Details:</strong>
+                                            {% if vuln.details is mapping %}
+                                                <ul>
+                                                {% for key, value in vuln.details.items() %}
+                                                    <li><code>{{ key }}</code>: {{ value }}</li>
+                                                {% endfor %}
+                                                </ul>
+                                            {% else %}
+                                                <p>{{ vuln.details }}</p>
+                                            {% endif %}
+                                        </div>
+                                    {% endif %}
+                                    {% if vuln.remediation %}
+                                        <div class="remediation">
+                                            <strong>Remediation:</strong>
+                                            <p>{{ vuln.remediation }}</p>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+        
+        {% if not csrf_found %}
+            <div class="no-vulnerabilities">
+                <p>No CSRF vulnerabilities detected.</p>
+            </div>
+        {% endif %}
+    </div>
+
+    <!-- Education Section -->
+    <div class="education-section">
+        <h2>Security Education</h2>
+        <div class="accordion">
+            <div class="accordion-item">
+                <button class="accordion-button" aria-expanded="false">
+                    What is XSS (Cross-Site Scripting)?
+                </button>
+                <div class="accordion-content">
+                    <p>Cross-Site Scripting (XSS) is a security vulnerability that allows attackers to inject malicious client-side scripts into web pages viewed by other users. These attacks succeed when a web application includes untrusted data in a new web page without proper validation or escaping.</p>
+                    <h4>Types of XSS:</h4>
+                    <ul>
+                        <li><strong>Reflected XSS:</strong> The malicious script comes from the current HTTP request.</li>
+                        <li><strong>Stored XSS:</strong> The malicious script is stored on the target server (in a database, message forum, comment field, etc.).</li>
+                        <li><strong>DOM-based XSS:</strong> The vulnerability exists in client-side code rather than server-side code.</li>
+                    </ul>
+                    <h4>Impact:</h4>
+                    <p>Attackers can steal cookies, session tokens, and other sensitive information, redirect users to malicious websites, or perform actions on behalf of the victim.</p>
+                    <h4>Prevention:</h4>
+                    <ul>
+                        <li>Always validate and sanitize user input</li>
+                        <li>Implement Content Security Policy (CSP)</li>
+                        <li>Use framework-provided output encoding</li>
+                        <li>Implement HttpOnly and Secure flags for cookies</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="accordion-item">
+                <button class="accordion-button" aria-expanded="false">
+                    What is CSRF (Cross-Site Request Forgery)?
+                </button>
+                <div class="accordion-content">
+                    <p>Cross-Site Request Forgery (CSRF) is an attack that forces authenticated users to execute unwanted actions on a web application in which they're currently authenticated. CSRF attacks exploit the trust that a site has in a user's browser.</p>
+                    <h4>How it works:</h4>
+                    <p>The attacker creates a malicious website, email, or message that contains a request to a vulnerable website. If the user is authenticated on the vulnerable site, the malicious request will include the user's authentication information automatically.</p>
+                    <h4>Impact:</h4>
+                    <p>Attackers can perform actions with the user's privileges, such as changing their email address, making purchases, or transferring funds.</p>
+                    <h4>Prevention:</h4>
+                    <ul>
+                        <li>Implement CSRF tokens for all state-changing operations</li>
+                        <li>Use the SameSite cookie attribute</li>
+                        <li>Verify the Origin or Referer header</li>
+                        <li>Use custom request headers for APIs (like X-Requested-With)</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="accordion-item">
+                <button class="accordion-button" aria-expanded="false">
+                    Security Best Practices
+                </button>
+                <div class="accordion-content">
+                    <h4>Input Validation:</h4>
+                    <p>Always validate input on both client and server-side. Use whitelisting rather than blacklisting when possible.</p>
+                    
+                    <h4>Output Encoding:</h4>
+                    <p>Always encode output data based on the context where it will be displayed (HTML, JavaScript, CSS, URL, etc.).</p>
+                    
+                    <h4>Content Security Policy (CSP):</h4>
+                    <p>Implement CSP headers to restrict the sources from which content can be loaded, reducing the risk of XSS attacks.</p>
+                    
+                    <h4>HTTPS:</h4>
+                    <p>Use HTTPS for all pages, not just login pages. This prevents man-in-the-middle attacks and protects sensitive data.</p>
+                    
+                    <h4>Security Headers:</h4>
+                    <p>Implement security headers like X-Content-Type-Options, X-Frame-Options, and X-XSS-Protection to enhance security.</p>
+                    
+                    <h4>Regular Updates:</h4>
+                    <p>Keep all software, libraries, and dependencies up to date to protect against known vulnerabilities.</p>
+                    
+                    <h4>Security Testing:</h4>
+                    <p>Regularly perform security testing, including static code analysis, dynamic application security testing, and penetration testing.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="back-link">
+        <a href="{{ url_for('index') }}" class="btn btn-secondary">Back to Home</a>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const accordionButtons = document.querySelectorAll('.accordion-button');
+        
+        accordionButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const expanded = this.getAttribute('aria-expanded') === 'true';
+                this.setAttribute('aria-expanded', !expanded);
+                
+                const content = this.nextElementSibling;
+                if (expanded) {
+                    content.style.maxHeight = null;
+                } else {
+                    content.style.maxHeight = content.scrollHeight + 'px';
+                }
+            });
+        });
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+
+{% block title %}Muninn - Web Threat Detection{% endblock %}
+
+{% block content %}
+<div class="home-container">
+    <div class="hero">
+        <h1>Muninn Web Threat Scanner</h1>
+        <p class="subtitle">Advanced AI-Powered Web Security Scanner</p>
+        <p class="description">
+            Scan websites for XSS and CSRF vulnerabilities with AI-assisted detection
+        </p>
+    </div>
+
+    <div class="scan-form-container">
+        <form action="{{ url_for('start_scan') }}" method="post" class="scan-form">
+            <div class="form-group">
+                <label for="url">Enter Website URL to Scan:</label>
+                <div class="input-group">
+                    <input type="url" id="url" name="url" placeholder="https://example.com" required>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-search"></i> Scan
+                    </button>
+                </div>
+                <div class="form-hint">
+                    <i class="fas fa-info-circle"></i>
+                    Make sure to include the full URL with http:// or https://
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="features">
+        <h2>Key Features</h2>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h3>XSS Detection</h3>
+                <p>AI-powered detection of Cross-Site Scripting vulnerabilities in web pages.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-user-shield"></i>
+                </div>
+                <h3>CSRF Scanner</h3>
+                <p>Identifies Cross-Site Request Forgery risks by analyzing forms and cookies.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <h3>AI Analysis</h3>
+                <p>Uses Google Gemini AI to analyze potential vulnerabilities with high accuracy.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <h3>Security Education</h3>
+                <p>Learn about web security threats and how to mitigate them.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="how-it-works">
+        <h2>How It Works</h2>
+        <div class="steps">
+            <div class="step">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <h3>Web Crawling</h3>
+                    <p>Muninn crawls the target website to discover pages and endpoints for scanning.</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <h3>Vulnerability Detection</h3>
+                    <p>Each page is analyzed for XSS and CSRF vulnerabilities using pattern recognition.</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <h3>AI Analysis</h3>
+                    <p>Google Gemini AI analyzes the findings to confirm vulnerabilities and reduce false positives.</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-number">4</div>
+                <div class="step-content">
+                    <h3>Detailed Reports</h3>
+                    <p>Receive comprehensive reports with detailed explanations and remediation guidance.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="disclaimer">
+        <h3>Important Notice</h3>
+        <p>This tool should only be used on websites you own or have explicit permission to scan. Unauthorized scanning may violate laws and terms of service.</p>
+    </div>
+</div>
+{% endblock %}

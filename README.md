@@ -240,6 +240,7 @@ If you encounter any issues or have questions about the project, please contact:
 ## Team
 
 Taumatawhakatangihangakoauauotamateaturipukakapikimaungahoronukupokaiwhenuakitanatahu
+> (Or just TAUMATA)
 
 ## Credits
 

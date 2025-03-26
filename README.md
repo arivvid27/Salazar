@@ -256,3 +256,6 @@ Special thanks to the open-source security community for their research and cont
 ---
 
 © 2025 Muninn - Open Source Web Threat Detection. Licensed under MIT.
+
+
+### First Place Winner for Crack the Code 2025: Safe Surf!
